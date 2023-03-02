@@ -1,0 +1,36 @@
+#the mai logic here is to read the text form the screen and search for the skip add button
+#if skip ad button found then the set cursor will be definde the mouse pointer will move there and then click the button
+
+import pytesseract as pt
+import pyautogui as au
+from PIL import Image
+from re import search
+while(True):
+    t=au.screenshot()
+    t.save("Z:\org\imgg.jpg")
+    imagee = Image.open("Z:\org\imgg.jpg")  # Load image.
+
+    left = 1270
+    top = 635
+    right = 1360                                                                                                              #skip Ad
+    bottom = 670
+    cropped_image = imagee.crop((left, top, right, bottom))  # Crop the image.
+    cropped_image.save("Z:\continously_reading and writing\crp.jpg")
+
+    pt.pytesseract.tesseract_cmd=r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+    file="Z:\continously_reading and writing\crp.jpg"
+    image=Image.open(file)
+    text=pt.image_to_string(image)
+    # print(text)
+    lis=[text]
+    print(lis)
+    for item in lis:
+        fs = item
+        ss = "skip"
+        if search(ss, fs):
+            au.moveTo(1342, 645)
+            au.leftClick()
+
+
+
